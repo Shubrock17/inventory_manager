@@ -159,3 +159,36 @@ class DeliveryListView(ListView):
     model = Delivery
     template_name = 'store/delivery_list.html'
     context_object_name = 'delivery'
+
+
+# inventory view
+@login_required(login_url='login')
+def inventory_view(request):
+    return render(request, 'store/inventory_view.html')
+
+#analytics view 
+@login_required(login_url='login')
+def analytics(request):
+    return render(request, 'store/analytics.html')
+
+
+#add biller 
+@login_required(login_url='login')
+def create_bill(request):
+    return render(request, 'store/create_bill.html')
+
+#bill list  
+@login_required(login_url='login')
+def billList(request):
+    return render(request, 'store/bill_list.html')
+
+#add employee
+@login_required(login_url='login')
+def create_employee(request):
+    return render(request, 'store/create_employee.html')
+
+
+#employee list  
+@login_required(login_url='login')
+def EmployeeList(request):
+    return render(request, 'store/employee_list.html')

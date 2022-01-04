@@ -11,6 +11,12 @@ from .views import (
     ProductListView,
     OrderListView,
     DeliveryListView,
+    inventory_view,
+    analytics,
+    create_bill,
+    billList,
+    create_employee,
+    EmployeeList,
 )
 
 urlpatterns = [
@@ -25,4 +31,10 @@ urlpatterns = [
     path('product-list/', ProductListView.as_view(), name='product-list'),
     path('order-list/', OrderListView.as_view(), name='order-list'),
     path('delivery-list/', DeliveryListView.as_view(), name='delivery-list'),
+    path('inventory-view/', inventory_view, name='inventory-view-list'),
+    path('analytics/', analytics, name='analytics'),
+    path('create-bill/', create_bill, name='create_bill'),
+    path('bill-list/', billList, name='bill-list'),
+    path('create-employee/', create_employee, name='create-employee'),
+    path('employee-list/', EmployeeList, name='employee-list'),
 ]
