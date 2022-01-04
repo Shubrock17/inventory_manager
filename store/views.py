@@ -6,8 +6,6 @@ from users.models import User
 from .models import (
     Supplier,
     Buyer,
-    Season,
-    Drop,
     Product,
     Order,
     Delivery
@@ -15,8 +13,6 @@ from .models import (
 from .forms import (
     SupplierForm,
     BuyerForm,
-    SeasonForm,
-    DropForm,
     ProductForm,
     OrderForm,
     DeliveryForm
@@ -87,48 +83,6 @@ class BuyerListView(ListView):
     context_object_name = 'buyer'
 
 
-# Season views
-@login_required(login_url='login')
-def create_season(request):
-    forms = SeasonForm()
-    if request.method == 'POST':
-        forms = SeasonForm(request.POST)
-        if forms.is_valid():
-            forms.save()
-            return redirect('season-list')
-    context = {
-        'form': forms
-    }
-    return render(request, 'store/create_season.html', context)
-
-
-class SeasonListView(ListView):
-    model = Season
-    template_name = 'store/season_list.html'
-    context_object_name = 'season'
-
-
-# Drop views
-@login_required(login_url='login')
-def create_drop(request):
-    forms = DropForm()
-    if request.method == 'POST':
-        forms = DropForm(request.POST)
-        if forms.is_valid():
-            forms.save()
-            return redirect('drop-list')
-    context = {
-        'form': forms
-    }
-    return render(request, 'store/create_drop.html', context)
-
-
-class DropListView(ListView):
-    model = Drop
-    template_name = 'store/drop_list.html'
-    context_object_name = 'drop'
-
-
 # Product views
 @login_required(login_url='login')
 def create_product(request):
@@ -159,19 +113,14 @@ def create_order(request):
         if forms.is_valid():
             supplier = forms.cleaned_data['supplier']
             product = forms.cleaned_data['product']
-            design = forms.cleaned_data['design']
-            color = forms.cleaned_data['color']
+            quantity = forms.cleaned_data['quantity']
+            # product=Product.objects.filter(supplier=supplier)
             buyer = forms.cleaned_data['buyer']
-            season = forms.cleaned_data['season']
-            drop = forms.cleaned_data['drop']
             Order.objects.create(
                 supplier=supplier,
                 product=product,
-                design=design,
-                color=color,
+                quantity=quantity,
                 buyer=buyer,
-                season=season,
-                drop=drop,
                 status='pending'
             )
             return redirect('order-list')
