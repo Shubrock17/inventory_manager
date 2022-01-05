@@ -3,6 +3,26 @@ from django import forms
 from .models import Product, Order, Delivery
 
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError
+# from .models import Profile
+
+class SignUpForm(UserCreationForm):
+	name = forms.CharField(label = ("Full Name"))
+	username = forms.EmailField(label = ("Email"))
+
+	class Meta:
+		model = User
+		fields = ('name', 'username', 'password1', 'password2')
+
+
+
+
+
+
 class SupplierForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'form-control',
